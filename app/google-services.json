@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "855515319012",
+    "firebase_url": "https://chatonfirebase-25047.firebaseio.com",
+    "project_id": "chatonfirebase-25047",
+    "storage_bucket": "chatonfirebase-25047.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855515319012:android:f02b88ced663043c",
+        "android_client_info": {
+          "package_name": "com.example.arsenko.chatonfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855515319012-ii015csji7onamts6dj382ilbolt07fh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.arsenko.chatonfirebase",
+            "certificate_hash": "4916ad5d5a2fc0c63281a59d9a8ebaa2cd2080f7"
+          }
+        },
+        {
+          "client_id": "855515319012-4c93isq3n4gqnjheu0om52nf1282mc8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfDUtuvNoQE9N4WHWQK7bLbbLRSWln3G0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855515319012-4c93isq3n4gqnjheu0om52nf1282mc8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
