@@ -1,29 +1,24 @@
 package com.example.arsenko.chatonfirebase;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.util.ui.ImeHelper;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
     @BindView(R.id.emptyTextView)
     TextView mEmptyListMessage;
 
-    @SuppressLint("RestrictedApi")  // because imehelper had an error
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +63,37 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
                 onSendClick();
             }
         });
+
+    }
+
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public static class ImeHelper {
+
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        public interface DonePressedListener {
+            void onDonePressed();
+        }
+
+        static void setImeOnDoneListener(EditText doneEditText,
+                                         final DonePressedListener listener) {
+            doneEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                    if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        if (event.getAction() == KeyEvent.ACTION_UP) {
+                            listener.onDonePressed();
+                        }
+                        // We need to return true even if we didn't handle the event to continue
+                        // receiving future callbacks.
+                        return true;
+                    } else if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        listener.onDonePressed();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        }
     }
 //        // SIGN IN
 //        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
@@ -172,80 +197,4 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
             }
         });
     }
-
-
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == SIGN_IN_REQUEST_CODE){
-            if(resultCode == RESULT_OK){
-                Toast.makeText(MainActivity.this, "You are signed in. Welcome!", Toast.LENGTH_SHORT).show();
-
-                displayChatMessages();
-            }
-            else{
-                Toast.makeText(MainActivity.this, "Please sign in for chating !", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_sign_out){
-            AuthUI.getInstance().signOut(this)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(MainActivity.this, "You've been signed out", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-        }
-        return true;
-    }
-
-    private void displayChatMessages() {
-        RecyclerView listOfMessages = findViewById(R.id.messagesList);
-
-        Query query = FirebaseDatabase.getInstance()
-                .getReference().child("chats");
-
-        FirebaseRecyclerOptions<ChatMessage> options =
-                new FirebaseRecyclerOptions.Builder<ChatMessage>()
-                        .setQuery(query, ChatMessage.class)
-                        .build();
-
-       FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<ChatMessage, ChatHolder>(options) {
-            @Override
-            public ChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.message, parent, false);
-
-                return new ChatHolder(view);
-            }
-            @Override
-            protected void onBindViewHolder(@NonNull ChatHolder holder, int position, @NonNull ChatMessage model) {
-
-            }
-        };
-//        listOfMessages.setAdapter(adapter);
-    }
-
-
-
-
-
-
-
-
 }

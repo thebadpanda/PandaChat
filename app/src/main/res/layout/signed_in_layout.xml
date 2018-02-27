@@ -106,46 +106,44 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/idp_token_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/idp_token_layout"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/idp_token" />
+            <!--<TextView-->
+                <!--style="@style/Base.TextAppearance.AppCompat.Subhead"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/idp_token" />-->
 
-            <TextView
-                android:id="@+id/idp_token"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textIsSelectable="true" />
+            <!--<TextView-->
+                <!--android:id="@+id/idp_token"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textIsSelectable="true" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/idp_secret_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/idp_secret_layout"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/idp_secret" />
+            <!--<TextView-->
+                <!--style="@style/Base.TextAppearance.AppCompat.Subhead"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/idp_secret" />-->
 
-            <TextView
-                android:id="@+id/idp_secret"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textIsSelectable="true" />
+            <!--<TextView-->
+                <!--android:id="@+id/idp_secret"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textIsSelectable="true" />-->
 
-        </LinearLayout>
-
+        <!--</LinearLayout>-->
     </LinearLayout>
-
 </ScrollView>

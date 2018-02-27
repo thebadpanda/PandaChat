@@ -12,7 +12,7 @@ public class UserStateNotifier implements OnCompleteListener<AuthResult> {
 
     private Context mContext;
 
-    public UserStateNotifier(Context context){
+    UserStateNotifier(Context context){
         mContext = context.getApplicationContext();
 
     }
