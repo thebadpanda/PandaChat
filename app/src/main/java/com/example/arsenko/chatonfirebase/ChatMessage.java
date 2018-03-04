@@ -16,9 +16,9 @@ public class ChatMessage extends AbstractChat{
 //        time = new Date().getTime();
     }
 
-    public ChatMessage() {
+    public ChatMessage(){
+        // Must be for Chat work !
     }
-
 
     public String getMessage() {
         return mMessage;
@@ -75,6 +75,10 @@ public class ChatMessage extends AbstractChat{
 
     @Override
     public String toString() {
-        return super.toString();
+        return "ChatMessage{" +
+                "mName='" + mName + '\'' +
+                ", mMessage='" + mMessage + '\'' +
+                "mUid='" + mUid + '\'' +
+                '}';
     }
 }

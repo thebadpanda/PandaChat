@@ -3,6 +3,7 @@ package com.example.arsenko.chatonfirebase;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,8 +14,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -22,13 +24,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 
 public class SignedInActivity extends AppCompatActivity {
@@ -43,19 +46,20 @@ public class SignedInActivity extends AppCompatActivity {
     ImageView mUserProfilePicture;
 
     @BindView(R.id.user_email)
-    TextView mUserEmail;
+    EditText mUserEmail;
 
     @BindView(R.id.user_display_name)
-    TextView mUserDisplayName;
+    EditText mUserDisplayName;
 
     @BindView(R.id.user_phone_number)
-    TextView mUserPhoneNumber;
+    EditText mUserPhoneNumber;
 
-    @BindView(R.id.user_enabled_providers)
-    TextView mEnabledProviders;
+    @BindView(R.id.button_save)
+    Button mButtonSave;
 
     private IdpResponse mIdpResponse;
     private SignedInConfig mSignedInConfig;
+    public static final String TEXT_TO_SAVE = "";
 
     public static Intent createIntent(
             Context context,
@@ -74,6 +78,8 @@ public class SignedInActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.signed_in_layout);
+        ButterKnife.bind(this);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
@@ -84,9 +90,19 @@ public class SignedInActivity extends AppCompatActivity {
 
         mIdpResponse = getIntent().getParcelableExtra(EXTRA_IDP_RESPONSE);
         mSignedInConfig = getIntent().getParcelableExtra(EXTRA_SIGNED_IN_CONFIG);
+        mUserDisplayName = findViewById(R.id.user_display_name);
+        mButtonSave = findViewById(R.id.button_save);
 
-        setContentView(R.layout.signed_in_layout);
-        ButterKnife.bind(this);
+        final SharedPreferences mPreferences = getDefaultSharedPreferences(SignedInActivity.this);
+        mUserDisplayName.setText(mPreferences.getString(TEXT_TO_SAVE, ""));
+
+
+        mButtonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPreferences.edit().putString(TEXT_TO_SAVE, mUserDisplayName.getText().toString()).apply();
+            }
+        });
     }
 
     @OnClick(R.id.sign_out)

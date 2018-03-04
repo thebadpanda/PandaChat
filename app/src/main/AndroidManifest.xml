@@ -33,6 +33,25 @@
         <activity
             android:name=".SignedInActivity"
             android:label="Auth" />
+        <!--<service-->
+            <!--android:name="com.myapppackage.application.gcm.GcmIntentService"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+
+        <!--<service-->
+            <!--android:name="com.myapppackage.application.gcm.GcmIDListenerService"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.android.gms.iid.InstanceID" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+
+        <!--<service-->
+            <!--android:name="com.myapppackage.application.gcm.RegistrationIntentService"-->
+            <!--android:exported="false"/>-->
 
     </application>
 

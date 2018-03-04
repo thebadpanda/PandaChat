@@ -1,5 +1,7 @@
 package com.example.arsenko.chatonfirebase;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.arsenko.chatonfirebase.SignedInActivity.TEXT_TO_SAVE;
+
 
 public class MainActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
 
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
     @BindView(R.id.emptyTextView)
     TextView mEmptyListMessage;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
                 onSendClick();
             }
         });
-
     }
 
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
@@ -95,15 +99,7 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
             });
         }
     }
-//        // SIGN IN
-//        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-//        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_REQUEST_CODE);
-//    } else {
-//        Toast.makeText(MainActivity.this, "Welcome!" + FirebaseAuth.getInstance().getCurrentUser()
-//                .getDisplayName(), Toast.LENGTH_SHORT).show();
-//
-//        displayChatMessages();
-//    }
+
     @Override
     public void onStart(){
         super.onStart();
@@ -154,9 +150,9 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
 
     @OnClick(R.id.sendButton)
     public void onSendClick() {
-
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String name = "User" + uid.substring(0, 6);
+        SharedPreferences mPrefernces = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = mPrefernces.getString(TEXT_TO_SAVE, "");
 //        long time = new Date().getTime();
 
         onAddMessage(new ChatMessage(name, mInputText.getText().toString(), uid));

@@ -37,6 +37,11 @@
     <string name="signed_in_header">You are signed in!</string>
     <string name="sign_out">Sign out</string>
     <string name="delete_account_label">Delete account</string>
+    <string name="button_save">Save</string>
+    <string name="hint_name">Enter Name</string>
+    <string name="hint_email">Enter Email</string>
+    <string name="hint_phone">Enter phone number</string>
+    <string name="hint">Save</string>
 
     <string name="sign_out_failed">Sign out failed</string>
     <string name="delete_account_failed">Delete account failed</string>
